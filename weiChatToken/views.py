@@ -62,7 +62,6 @@ def autoreply(request):
             else:
                 content = "暂时还不知道你说的是什么，试试回复 '你叫' "
             replyMsg = TextMsg(toUser, fromUser, content)
-            print(replyMsg)
             return replyMsg.send()
 
         elif msg_type == 'image':
@@ -183,10 +182,13 @@ class TBKParams:
                 couponInfo = ""
                 for index in range(len(couponResult)):
                     title = couponResult[index].get("title", "")  # 商品标题
-                    zk_final_price = couponResult[index].get("zk_final_price", 0.00)  # 商品售价
-                    coupon_info = couponResult[index].get("coupon_info", "")  # 优惠券信息
-                    coupon_share_url = couponResult[index].get("coupon_share_url", "")  # 优惠券连接
-                    couponInfo += f"\n\n商品名称: {title}\n价格：{zk_final_price}\n优惠券：{coupon_info}\n优惠券链接：http:{coupon_share_url}"
+                    if title == name:  # 校验商品名字是否相同
+                        zk_final_price = couponResult[index].get("zk_final_price", 0.00)  # 商品售价
+                        coupon_info = couponResult[index].get("coupon_info", "")  # 优惠券信息
+                        coupon_share_url = couponResult[index].get("coupon_share_url", "")  # 优惠券连接
+                        couponInfo += f"\n\n商品名称: {title}\n价格：{zk_final_price}\n优惠券：{coupon_info}\n优惠券链接：http:{coupon_share_url}"
+                    else:
+                        return TBKParams.ERROR_INFO
                 print(couponData + couponInfo)
                 return couponData + couponInfo
             elif resp and "error_response" in resp:
