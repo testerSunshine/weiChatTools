@@ -1,0 +1,23 @@
+/.idea/
+*.pyc
+.DS_Store
+/log/
+/app/
+###############
+#    folder   #
+###############
+/Result/
+/mytest/
+/Report/
+/log/
+
+###############
+#     file    #
+###############
+*.png
+*.pyc
+*.log
+*.xml
+*.html
+/.idea/
+test*.py
